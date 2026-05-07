@@ -42,11 +42,11 @@ The data ingestion pipeline was built and tested incrementally. The steps includ
         ```python
         eventhub_connection_string = dbutils.secrets.get(scope="key-vault-scope", key="eventhub-connection-string")
         ```
-         ![databricks_send_test_events_to_eventhub](Azure Setup/Sending Date to Event Hub.PNG)  
+         ![databricks_send_test_events_to_eventhub](Azure Setup/Sending Date to Event Hub.png)  
 4. Tested the connection between **Databricks** and **WeatherAPI**
    - Got the secret API key through the **Databricks Secret Scope**
    - Set up the required parameters by the Weather API documentation
-     ![databricks_test_weateherAPI](Azure Setup/Test Weateher Api.PNG)             
+     ![databricks_test_weateherAPI](Azure Setup/Test Weateher Api.png)             
 5. Integrating Weather API, Databricks, and Event Hub  
   In the final step, the pipeline connects all three components as follows:
    - Weather API integration
@@ -105,7 +105,7 @@ The key steps in the development of this alternative approach include:
 4. Deployment and testing  
    - Used the Azure Functions extension for VS Code to deploy the function to Azure  
    - Verified the function is correctly deployed and events are successfully sent to the Event Hub every 30 seconds  
-   ![function_app_success_deployed](Azure Setup/Function App Success Deployed.PNG)
+   ![function_app_success_deployed](Azure Setup/Function App Success Deployed.png)
  
 
 #### Cost Analysis and Architectural Decision
@@ -130,7 +130,7 @@ In this stage, **Microsoft Fabric** served as the platform for processing the st
 1. Workspace and **Eventhouse** creation
    - Created a dedicated workspace (e.g., "weather-streaming") in **Fabric** for project resources
    - Within this workspace, created an **Eventhouse** resource which automatically provisions a **KQL database**
-  ![fabric_eventstream_workspace](Fabric Setup/Weather-Streaming Function.PNG)
+  ![fabric_eventstream_workspace](Fabric Setup/Weather-Streaming Function.png)
 2. Creating and configuring the **Event Stream** pipeline
    - Source Setup (Event Hub)  
        - Connected the Event Hub to the Event Stream by creating new **Shared Access Policy** connection credentials
@@ -142,7 +142,7 @@ In this stage, **Microsoft Fabric** served as the platform for processing the st
 3. Publishing and verifying the pipeline
    - Published the Eventstream pipeline, which continuously transfers weather data from the Event Hub to the KQL database
    - Verified the correct data ingestion in the KQL DB by checking data previews
-   ![fabric_eventstream_data preview](Fabric Setup/Fetch Data From Azure Event hub.PNG)
+   ![fabric_eventstream_data preview](Fabric Setup/Fetch Data From Azure Event hub.png)
 
 ### Reporting & Visualization
 The last development phase leverages **Power BI** to transform the streaming weather data into an interactive, real-time dashboard. Power BI Desktop was the primary tool here since it offers more flexibility than the online version. The main development steps include:
