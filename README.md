@@ -42,7 +42,7 @@ The data ingestion pipeline was built and tested incrementally. The steps includ
         ```python
         eventhub_connection_string = dbutils.secrets.get(scope="key-vault-scope", key="eventhub-connection-string")
         ```
-         ![databricks_send_test_events_to_eventhub](Azure Setup/Sending Date to Event Hub.png)  
+         ![databricks_send_test_events_to_eventhub](Azure Setup/Sending Data to Event Hub.png)  
 4. Tested the connection between **Databricks** and **WeatherAPI**
    - Got the secret API key through the **Databricks Secret Scope**
    - Set up the required parameters by the Weather API documentation
