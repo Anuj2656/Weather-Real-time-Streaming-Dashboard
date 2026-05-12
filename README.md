@@ -130,7 +130,7 @@ In this stage, **Microsoft Fabric** served as the platform for processing the st
 1. Workspace and **Eventhouse** creation
    - Created a dedicated workspace (e.g., "weather-streaming") in **Fabric** for project resources
    - Within this workspace, created an **Eventhouse** resource which automatically provisions a **KQL database**
-  ![fabric_eventstream_workspace](Fabric%20Setup/Weather%20Streaming%20Workspace.PNG)
+  ![fabric_eventstream_workspace](Fabric%20Setup/Weather%20Streaming%20Workspace.png)
 2. Creating and configuring the **Event Stream** pipeline
    - Source Setup (Event Hub)  
        - Connected the Event Hub to the Event Stream by creating new **Shared Access Policy** connection credentials
@@ -142,7 +142,7 @@ In this stage, **Microsoft Fabric** served as the platform for processing the st
 3. Publishing and verifying the pipeline
    - Published the Eventstream pipeline, which continuously transfers weather data from the Event Hub to the KQL database
    - Verified the correct data ingestion in the KQL DB by checking data previews
-   ![fabric_eventstream_data preview](Fabric%20Setup/Fetch%20Data%20Form%20Azure%20Event%20hub.PNG)
+   ![fabric_eventstream_data preview](Fabric%20Setup/Fetch%20Data%20Form%20Azure%20Event%20hub.png)
 
 ### Reporting & Visualization
 The last development phase leverages **Power BI** to transform the streaming weather data into an interactive, real-time dashboard. Power BI Desktop was the primary tool here since it offers more flexibility than the online version. The main development steps include:
@@ -198,16 +198,6 @@ Configuration steps included:
 - Selecting JSON as the incoming data format
 - Connecting Eventstream with the Eventhouse destination
 
-The Eventstream continuously listens for incoming events from Azure Event Hub and processes them in real time.
-
-![eventstream_workspace](Fabric%20Setup/Weather%20Streaming%20Workspace.png)
-
----
-
-## Fetching Streaming Data from Azure Event Hub
-
-The streaming weather events generated from the notebook and Azure Function were successfully consumed inside Fabric Eventstream.
-
 The pipeline continuously:
 - Reads incoming weather JSON events
 - Parses streaming records
@@ -215,9 +205,9 @@ The pipeline continuously:
 
 This validates that the end-to-end real-time ingestion pipeline is working correctly.
 
-![fetch_data](Fabric%20Setup/Fetch%20Data%20Form%20Azure%20Event%20hub.png)
+The Eventstream continuously listens for incoming events from Azure Event Hub and processes them in real time.
 
----
+![fetch_data](Fabric%20Setup/Fetch%20Data%20Form%20Azure%20Event%20hub.png)
 
 ## Eventhouse Weather Table
 
@@ -250,7 +240,46 @@ The complete real-time streaming process works like this:
 
 This architecture enables a fully automated real-time streaming analytics pipeline using Azure and Microsoft Fabric. 
   
+## Email Alert Notification System
 
+An automated email alert mechanism was implemented to notify users whenever new weather streaming events are processed successfully.
+
+The alert system helps monitor:
+- Successful event ingestion
+- Streaming pipeline activity
+- Real-time event processing status
+- Notification delivery through email
+
+The email alert functionality was integrated as part of the real-time weather streaming workflow to improve monitoring and operational visibility.
+
+---
+
+## Email Alert Configuration
+
+The mail alert setup was configured to trigger notifications whenever the weather pipeline processes new streaming data.
+
+The alert contains:
+- Weather event details
+- Processing timestamp
+- Event status
+- Streaming confirmation message
+
+![mail_alert](Fabric%20Setup/Alter%20Message%20on%20mail.png)
+
+---
+
+## Alert Workflow
+
+The complete notification workflow operates as follows:
+
+1. Weather data is fetched from the API.
+2. Azure Function processes the weather event.
+3. The event is sent to Azure Event Hub.
+4. Microsoft Fabric Eventstream processes the incoming event.
+5. After successful processing, an automated email alert is triggered.
+6. Users receive notification messages confirming successful event processing.
+
+This notification mechanism helps ensure that the streaming pipeline is continuously monitored and functioning correctly in real time.
 
 
 
