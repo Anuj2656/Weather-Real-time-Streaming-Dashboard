@@ -105,7 +105,7 @@ The key steps in the development of this alternative approach include:
 4. Deployment and testing  
    - Used the Azure Functions extension for VS Code to deploy the function to Azure  
    - Verified the function is correctly deployed and events are successfully sent to the Event Hub every 30 seconds  
-   ![function_app_success_deployed](Azure%20Setup/Function%20App%20Success%20Deployed.PNG)
+   ![function_app_success_deployed](Azure%20Setup/Function%20App%20Success%20Deployed.png)
  
 
 #### Cost Analysis and Architectural Decision
