@@ -110,13 +110,13 @@ The key steps in the development of this alternative approach include:
 
 #### Cost Analysis and Architectural Decision
 A careful evaluation of cost and performance factors led to the decision to proceed with Azure Functions for data ingestion instead of Azure Databricks. Here is the analysis that influenced this decision:
-1. Cost Analysis (based on [Azure pricing calculator estimation](/cost-analysis))
+1. Cost Analysis (based on [Azure pricing calculator estimation](Cost-Analysis/ExportedEstimate.xlsx))
    - Azure Databricks
      - estimated to about **$500/month** (based on the region, workload, pricing tier and instance type)
    - Azure Functions
      - Azure Functions under the **consumption plan** offer **1 million free executions** per month
      - for the given use case (an API call every 30 seconds), Azure Functions generate little to no cost compared to Databricks  
-![cost caclulator azure pricing](Azure%Setup/azure%pricing%calculator.PNG) 
+![cost caclulator azure pricing](Azure%20Setup/azure%20pricing%20calculator.PNG) 
 2. Performace consideration  
    The project doesn't involve any Big Data workload (e.g., aggregating millions of data points, complex transformations). Fetching weather data via an API and sending it to the Event Hub in this pipeline can be considered as simple tasks.
    - Azure Databricks
@@ -142,7 +142,7 @@ In this stage, **Microsoft Fabric** served as the platform for processing the st
 3. Publishing and verifying the pipeline
    - Published the Eventstream pipeline, which continuously transfers weather data from the Event Hub to the KQL database
    - Verified the correct data ingestion in the KQL DB by checking data previews
-   ![fabric_eventstream_data preview](Fabric Setup/Fetch Data From Azure Event hub.png)
+   ![fabric_eventstream_data preview](Fabric%20Setup/Fetch%20Data%20From%20Azure%20Event%20hub.png)
 
 ### Reporting & Visualization
 The last development phase leverages **Power BI** to transform the streaming weather data into an interactive, real-time dashboard. Power BI Desktop was the primary tool here since it offers more flexibility than the online version. The main development steps include:
