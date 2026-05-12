@@ -116,7 +116,7 @@ A careful evaluation of cost and performance factors led to the decision to proc
    - Azure Functions
      - Azure Functions under the **consumption plan** offer **1 million free executions** per month
      - for the given use case (an API call every 30 seconds), Azure Functions generate little to no cost compared to Databricks  
-![cost caclulator azure pricing](Azure Setup/azure_pricing_calculator.PNG) 
+![cost caclulator azure pricing](Azure%Setup/azure%pricing%calculator.PNG) 
 2. Performace consideration  
    The project doesn't involve any Big Data workload (e.g., aggregating millions of data points, complex transformations). Fetching weather data via an API and sending it to the Event Hub in this pipeline can be considered as simple tasks.
    - Azure Databricks
@@ -154,10 +154,110 @@ The last development phase leverages **Power BI** to transform the streaming wea
 4. Publishing and Configuring the Report
    - Uploaded the dashboard to the Power BI service with Fabric
    - Configured scheduled refresh settings to ensure the report continuously reflects the latest data
-   ![powerbi_report](screenshots/powerbi_weather_report.PNG)
+   ![powerbi_report](screenshots/powerbi%weather%report.PNG)
 
 
- 
+### Event Processing and Data Loading using Microsoft Fabric
+
+In this stage, Microsoft Fabric was used to process the real-time streaming weather events coming from Azure Event Hub and load them into an Eventhouse KQL Database for real-time analytics and reporting.
+
+The complete Fabric flow works as follows:
+
+Azure Event Hub → Fabric Eventstream → Eventhouse (KQL Database) → Power BI
+
+---
+
+## Microsoft Fabric Workspace Setup
+
+A dedicated Microsoft Fabric workspace was created to manage all real-time streaming resources for this project.
+
+Inside the workspace:
+- An Eventhouse was created
+- A KQL Database was automatically provisioned
+- Eventstream was configured for real-time ingestion
+
+![fabric_workspace](Fabric%20Setup/Weather%20Streaming%20Workspace.png)
+
+---
+
+## Eventhouse Creation
+
+An Eventhouse was created inside Microsoft Fabric to store streaming weather data.
+
+The Eventhouse provides:
+- Real-time ingestion capabilities
+- KQL Database support
+- Fast querying for streaming analytics
+- Integration with Power BI
+
+A dedicated weather table was later created inside the Eventhouse to continuously store incoming weather events.
+
+![eventhouse](Fabric%20Setup/Eventhouse%20of%20Weather%20Data.png)
+
+---
+
+## Connecting Azure Event Hub with Fabric Eventstream
+
+After setting up the Eventhouse, Fabric Eventstream was configured to consume streaming events directly from Azure Event Hub.
+
+Configuration steps included:
+- Creating a new Eventstream
+- Selecting Azure Event Hub as the source
+- Configuring Shared Access Policy credentials
+- Selecting JSON as the incoming data format
+- Connecting Eventstream with the Eventhouse destination
+
+The Eventstream continuously listens for incoming events from Azure Event Hub and processes them in real time.
+
+![eventstream_workspace](Fabric%20Setup/Weather%20Streaming%20Workspace.png)
+
+---
+
+## Fetching Streaming Data from Azure Event Hub
+
+The streaming weather events generated from the notebook and Azure Function were successfully consumed inside Fabric Eventstream.
+
+The pipeline continuously:
+- Reads incoming weather JSON events
+- Parses streaming records
+- Transfers processed data into the Eventhouse KQL table
+
+This validates that the end-to-end real-time ingestion pipeline is working correctly.
+
+![fetch_data](Fabric%20Setup/Fetch%20Data%20Form%20Azure%20Event%20hub.png)
+
+---
+
+## Eventhouse Weather Table
+
+A destination table was created inside the Eventhouse KQL Database to store the incoming streaming weather records.
+
+The table automatically receives:
+- Temperature
+- Humidity
+- Wind speed
+- Weather condition
+- Timestamp information
+
+This enables real-time querying and reporting directly from Fabric.
+
+![eventhouse_table](Fabric%20Setup/Weather%20Table%20in%20Eventhouse.png)
+
+---
+
+## Real-Time Data Flow Explanation
+
+The complete real-time streaming process works like this:
+
+1. The notebook/API fetches weather data from the Weather API.
+2. Azure Function processes and converts the API response into JSON format.
+3. The processed events are sent to Azure Event Hub.
+4. Fabric Eventstream continuously listens to Event Hub.
+5. Eventstream processes the incoming JSON events.
+6. Processed records are loaded into the Eventhouse KQL Database table.
+7. Power BI reads live data directly from the KQL Database for real-time dashboard visualization.
+
+This architecture enables a fully automated real-time streaming analytics pipeline using Azure and Microsoft Fabric. 
   
 
 
