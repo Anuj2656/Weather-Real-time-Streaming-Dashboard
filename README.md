@@ -280,7 +280,7 @@ Additionally, Microsoft Fabric Data Activator is used for monitoring and alertin
 
 Azure Key Vault is used to securely manage secrets and credentials, while Cost Management helps analyze and optimize cloud expenses.
 
-![final-architecture](Architecture.png)
+![final-architecture](Flow%20Chart/Flow%20chart.png)
 
 
 
