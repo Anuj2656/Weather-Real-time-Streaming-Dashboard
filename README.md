@@ -42,11 +42,11 @@ The data ingestion pipeline was built and tested incrementally. The steps includ
         ```python
         eventhub_connection_string = dbutils.secrets.get(scope="key-vault-scope", key="eventhub-connection-string")
         ```
-         ![databricks](Azure%20Setup/Sending%20Data%20to%20Event%20Hub.png)  
+         ![databricks_send_test_events_to_eventhub](Azure%20Setup/Sending%20Data%20to%20Event%20Event%20Hub.PNG)  
 4. Tested the connection between **Databricks** and **WeatherAPI**
    - Got the secret API key through the **Databricks Secret Scope**
    - Set up the required parameters by the Weather API documentation
-     ![databricks_test_weateherAPI](Azure Setup/Test Weateher Api.png)             
+     ![databricks_test_weateherAPI](Azure%20Setup/Test%20Weateher%20Api.PNG)             
 5. Integrating Weather API, Databricks, and Event Hub  
   In the final step, the pipeline connects all three components as follows:
    - Weather API integration
@@ -105,18 +105,18 @@ The key steps in the development of this alternative approach include:
 4. Deployment and testing  
    - Used the Azure Functions extension for VS Code to deploy the function to Azure  
    - Verified the function is correctly deployed and events are successfully sent to the Event Hub every 30 seconds  
-   ![function_app_success_deployed](Azure Setup/Function App Success Deployed.png)
+   ![function_app_success_deployed](Azure%20Setup/Function%20App%20Success%20Deployed.PNG)
  
 
 #### Cost Analysis and Architectural Decision
 A careful evaluation of cost and performance factors led to the decision to proceed with Azure Functions for data ingestion instead of Azure Databricks. Here is the analysis that influenced this decision:
-1. Cost Analysis (based on [Azure pricing calculator estimation](Cost-Analysis/ExportedEstimate.xlsx))
+1. Cost Analysis (based on [Azure pricing calculator estimation](/cost-analysis))
    - Azure Databricks
      - estimated to about **$500/month** (based on the region, workload, pricing tier and instance type)
    - Azure Functions
      - Azure Functions under the **consumption plan** offer **1 million free executions** per month
      - for the given use case (an API call every 30 seconds), Azure Functions generate little to no cost compared to Databricks  
-![cost caclulator azure pricing](Azure%20Setup/azure%20pricing%20calculator.PNG) 
+![cost caclulator azure pricing](Azure%20Setup/azure_pricing_calculator.PNG) 
 2. Performace consideration  
    The project doesn't involve any Big Data workload (e.g., aggregating millions of data points, complex transformations). Fetching weather data via an API and sending it to the Event Hub in this pipeline can be considered as simple tasks.
    - Azure Databricks
@@ -130,7 +130,7 @@ In this stage, **Microsoft Fabric** served as the platform for processing the st
 1. Workspace and **Eventhouse** creation
    - Created a dedicated workspace (e.g., "weather-streaming") in **Fabric** for project resources
    - Within this workspace, created an **Eventhouse** resource which automatically provisions a **KQL database**
-  ![fabric_eventstream_workspace](Fabric Setup/Weather-Streaming Function.png)
+  ![fabric_eventstream_workspace](Fabric%20Setup/Weather%20Streaming%20Workspace.PNG)
 2. Creating and configuring the **Event Stream** pipeline
    - Source Setup (Event Hub)  
        - Connected the Event Hub to the Event Stream by creating new **Shared Access Policy** connection credentials
@@ -142,7 +142,7 @@ In this stage, **Microsoft Fabric** served as the platform for processing the st
 3. Publishing and verifying the pipeline
    - Published the Eventstream pipeline, which continuously transfers weather data from the Event Hub to the KQL database
    - Verified the correct data ingestion in the KQL DB by checking data previews
-   ![fabric_eventstream_data preview](Fabric%20Setup/Fetch%20Data%20From%20Azure%20Event%20hub.png)
+   ![fabric_eventstream_data preview](Fabric%20Setup/Fetch%20Data%20Form%20Azure%20Event%20hub.PNG)
 
 ### Reporting & Visualization
 The last development phase leverages **Power BI** to transform the streaming weather data into an interactive, real-time dashboard. Power BI Desktop was the primary tool here since it offers more flexibility than the online version. The main development steps include:
@@ -154,16 +154,7 @@ The last development phase leverages **Power BI** to transform the streaming wea
 4. Publishing and Configuring the Report
    - Uploaded the dashboard to the Power BI service with Fabric
    - Configured scheduled refresh settings to ensure the report continuously reflects the latest data
-   ![powerbi_report](screenshots/powerbi%weather%report.PNG)
-
-
-### Event Processing and Data Loading using Microsoft Fabric
-
-In this stage, Microsoft Fabric was used to process the real-time streaming weather events coming from Azure Event Hub and load them into an Eventhouse KQL Database for real-time analytics and reporting.
-
-The complete Fabric flow works as follows:
-
-Azure Event Hub → Fabric Eventstream → Eventhouse (KQL Database) → Power BI
+   ![powerbi_report](screenshots/powerbi_weather_report.PNG)         
 
 ---
 
