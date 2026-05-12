@@ -266,20 +266,21 @@ The alert contains:
 
 ![mail_alert](Fabric%20Setup/Alter%20Message%20on%20mail.png)
 
----
+# Final Architecture Flow
 
-## Alert Workflow
+The project implements a complete real-time weather analytics pipeline using Azure services and Microsoft Fabric.
 
-The complete notification workflow operates as follows:
+The workflow starts with a live Weather API source that continuously provides weather data. Azure Databricks and Azure Functions are used for data ingestion and processing. The processed streaming events are then pushed into Azure Event Hub, which acts as the real-time streaming layer.
 
-1. Weather data is fetched from the API.
-2. Azure Function processes the weather event.
-3. The event is sent to Azure Event Hub.
-4. Microsoft Fabric Eventstream processes the incoming event.
-5. After successful processing, an automated email alert is triggered.
-6. Users receive notification messages confirming successful event processing.
+Microsoft Fabric Eventstream consumes the streaming events from Event Hub and loads the processed data into Eventhouse (Kusto DB) for real-time analytics and querying.
 
-This notification mechanism helps ensure that the streaming pipeline is continuously monitored and functioning correctly in real time.
+Power BI connects directly with the Eventhouse KQL Database to create live dashboards and real-time weather visualizations.
+
+Additionally, Microsoft Fabric Data Activator is used for monitoring and alerting purposes. It triggers real-time email alerts whenever specific event conditions are met.
+
+Azure Key Vault is used to securely manage secrets and credentials, while Cost Management helps analyze and optimize cloud expenses.
+
+![final-architecture](Architecture.png)
 
 
 
