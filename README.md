@@ -154,8 +154,8 @@ The last development phase leverages **Power BI** to transform the streaming wea
 4. Publishing and Configuring the Report
    - Uploaded the dashboard to the Power BI service with Fabric
    - Configured scheduled refresh settings to ensure the report continuously reflects the latest data
-   ![powerbi_report](Weather Dashboard/image1.png)
-   ![powerbi_report](Weather Dashboard/image.png)         
+   ![powerbi_report](Weather%20Dashboard/image1.png)
+   ![powerbi_report](Weather%20Dashboard/image.png)         
 
 ---
 
